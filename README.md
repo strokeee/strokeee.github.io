@@ -1,3 +1,3 @@
 # strokeee.github.io
-# This here is my little learning project, a game if you will. It's stylized after old terminals, though those didn't have buttons. So this project is my first where I actually code, and intend to sporadically develop and build off of it. Eventually, when I earn enough knowlege I'll be trying to recreate this in C#, as an actual app. If anybody sees this, wish me luck lol.
-# 26.08.2025 - 08:37
+This here is my little learning project, a game if you will. It's stylized after old terminals, though those didn't have buttons. So this project is my first where I actually code, and intend to sporadically develop and build off of it. Eventually, when I earn enough knowlege I'll be trying to recreate this in C#, as an actual app. If anybody sees this, wish me luck lol.
+26.08.2025 - 08:37
