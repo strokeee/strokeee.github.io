@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>MKMOM</title>
+  </head>
+
+  <body>
+    <header>
+      <p>MKMOM</p>
+    </header>
+    <section class="infoPanel">
+      <section id="infoMain">
+        <p class="infoText">--Info-----------</p>
+        <p id="credits"></p>
+        <p id="energy"></p>
+        <p id="miners"></p>
+        <p id="refineries"></p>
+      </section>
+
+      <section id="infoOre">
+        <p class="infoText">--Ores-----------</p>
+        <p id="oreCoal"></p>
+        <p id="oreIron"></p>
+        <p id="oreSilver"></p>
+        <p id="oreGold"></p>
+      </section>
+
+      <section id="infoAlloys">
+        <p class="infoText">--Alloys---------</p>
+        <p id="iron"></p>
+        <p id="silver"></p>
+        <p id="gold"></p>
+      </section>
+    </section>
+
+    <!--NOWE przyciski, podzielone na sekcje, przerwy,-->
+    <section id="operations">
+      <section id="resourceManagement">
+        <button id="startMining">Start Mining</button>
+        <button id="startRefining">Start Refining</button>
+        <button id="startEnergy">Start Energy</button>
+      </section>
+      <br>
+      <button id="minersBuy">buy miners</button>
+      <button id="minersUpgrade">upgrade miner</button>
+      <p id="minerLevelDisplay">Miner Level: 0</p>
+      <button id="refineriesBuy">buy refineries</button>
+      <button id="refineriesUpgrade">upgrade refineries</button>
+      <p id="refineryLevelDisplay">Refinery Level: 0</p>
+    </section>
+  </body>
+
+  <script src="script.js"></script>
+</html>
