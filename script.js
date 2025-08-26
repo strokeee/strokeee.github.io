@@ -1,6 +1,6 @@
 //base values
-    let credits = 10000;
-    let energy = 95;
+    let credits = 0;
+    let energy = 100;
     let batteryCapacity = 100;
     let miners = 1;
     let refineries = 1;
@@ -11,10 +11,10 @@
     const refineriesDisplay = document.getElementById('refineries');
 
 //ore
-    let oreCoal = 1000;
-    let oreIron = 1000;
-    let oreSilver = 1000;
-    let oreGold = 1000;
+    let oreCoal = 0;
+    let oreIron = 0;
+    let oreSilver = 0;
+    let oreGold = 0;
 
     const oreCoalDisplay = document.getElementById('oreCoal');
     const oreIronDisplay = document.getElementById('oreIron');
@@ -37,19 +37,19 @@
 
 //functions
     function updateDisplays() {
-        creditsDisplay.textContent = `Credits: ${credits}`;
-        energyDisplay.textContent = `Energy: ${energy}/${batteryCapacity}`;
-        minersDisplay.textContent = `Miners: ${miners}`;
-        refineriesDisplay.textContent = `Refineries: ${refineries}`;
+        creditsDisplay.textContent = `Credits: ${credits.toFixed(2)}`;
+        energyDisplay.textContent = `Energy: ${energy.toFixed(0)}/${batteryCapacity.toFixed(0)}`;
+        minersDisplay.textContent = `Miners: ${miners.toFixed(0)}`;
+        refineriesDisplay.textContent = `Refineries: ${refineries.toFixed(0)}`;
 
-        oreCoalDisplay.textContent = `Coal Ore: ${oreCoal}T`;
-        oreIronDisplay.textContent = `Iron Ore: ${oreIron}T`;
-        oreGoldDisplay.textContent = `Gold Ore: ${oreGold}T`;
-        oreSilverDisplay.textContent = `Silver Ore: ${oreSilver}T`;
+        oreCoalDisplay.textContent = `Coal Ore: ${oreCoal.toFixed(2)}T`;
+        oreIronDisplay.textContent = `Iron Ore: ${oreIron.toFixed(2)}T`;
+        oreGoldDisplay.textContent = `Gold Ore: ${oreGold.toFixed(2)}T`;
+        oreSilverDisplay.textContent = `Silver Ore: ${oreSilver.toFixed(2)}T`;
 
-        ironDisplay.textContent = `Iron: ${iron}T`;
-        silverDisplay.textContent = `Silver: ${silver}T`;
-        goldDisplay.textContent = `Gold: ${gold}T`;
+        ironDisplay.textContent = `Iron: ${iron.toFixed(2)}T`;
+        silverDisplay.textContent = `Silver: ${silver.toFixed(2)}T`;
+        goldDisplay.textContent = `Gold: ${gold.toFixed(2)}T`;
     }
 
 updateDisplays();
@@ -57,41 +57,53 @@ updateDisplays();
 // Event listeners for buttons
 const startMining = document.getElementById('startMining');
 
+let miningActive = false;
+
 startMining.addEventListener("click", () => {
     oreArray = [
         oreCoal,
         oreIron,
         oreSilver,
         oreGold
-    ]
+    ];
 
-    miningSpeed = setInterval(() => {
-        randomOre = Math.floor(Math.random() * 4) + 1;
-        switch (randomOre) {
-            case 1:
-                oreCoal += (minersOutput * miners) * 1;
-                energy -= energyConsumption * miners;
-                break;
-            case 2:
-                oreIron += (minersOutput * miners) * 0.5;
-                energy -= energyConsumption * miners;
-                break;
-            case 3:
-                oreSilver += (minersOutput * miners) * 0.25;
-                energy -= energyConsumption * miners;
-                break;
-            case 4:
-                oreGold += (minersOutput * miners) * 0.1;
-                energy -= energyConsumption * miners;
-                break;
-        }
-        if (energy <= 0) {
-            energy = 0;
-            alert("Brak energii");
-            clearInterval(miningSpeed);
-        }
-        updateDisplays();
-    }, workSpeed); //NOWE zamiast manulanie wpisanej wartości wpisałem workSpeed-------------------------------------------
+    if (!miningActive) {
+        miningActive = true;
+        startMining.textContent = "Mining...";
+        miningSpeed = setInterval(() => {
+            randomOre = Math.floor(Math.random() * 4) + 1;
+            switch (randomOre) {
+                case 1:
+                    oreCoal += (minersOutput * miners) * 1;
+                    energy -= energyConsumption * miners;
+                    break;
+                case 2:
+                    oreIron += (minersOutput * miners) * 0.5;
+                    energy -= energyConsumption * miners;
+                    break;
+                case 3:
+                    oreSilver += (minersOutput * miners) * 0.25;
+                    energy -= energyConsumption * miners;
+                    break;
+                case 4:
+                    oreGold += (minersOutput * miners) * 0.1;
+                    energy -= energyConsumption * miners;
+                    break;
+            }
+            if (energy <= 0) {
+                energy = 0;
+                alert("Brak energii");
+                clearInterval(miningSpeed);
+                miningActive = false;
+                startMining.textContent = "Start Mining";
+            }
+            updateDisplays();
+        }, workSpeed);
+    } else {
+        miningActive = false;
+        startMining.textContent = "Start Mining";
+        clearInterval(miningSpeed);
+    }
 });
 
 
@@ -131,55 +143,98 @@ let workSpeed = 1000;
 let refineRequirement = 1;
 let refineOutput = 0.1;
 
-let energyProduced = 10;
-let energyConsumption = 0.5;
-let coalConsumption = 1;
-
+// GENEROWANIE ENERGII=============================================
 const startEnergy = document.getElementById('startEnergy');
 
+let energyProductionActive = false;
+
+let energyProductionSpeed = 500;
+let energyProduced = 1;
+let energyConsumption = 0.25;
+let coalConsumption = 0.25;
+
 startEnergy.addEventListener("click", () => {
-    energyProduction = setInterval(() => {
-        if (energy < batteryCapacity && oreCoal > 0) {
-            energy += energyProduced;
-            oreCoal -= coalConsumption;
-            if (energy > batteryCapacity) {
-                energy = batteryCapacity;
-            }
+    if (!energyProductionActive) {
+        energyProductionActive = true;
+        startEnergy.textContent = "Generating...";
+        if (oreCoal > 0) {
+            energyProduction = setInterval(() => {
+                if (energy <= batteryCapacity -1) {
+                    energy += energyProduced;
+                    oreCoal -= coalConsumption;
+                    updateDisplays();                    
+                }
+                if (energy >= batteryCapacity) {
+                    energy = batteryCapacity;
+                    updateDisplays();
+                }
+                if (oreCoal <= 0) {
+                    alert("not enough coal");
+                    energyProductionActive = false;
+                    startEnergy.textContent = "Start Generators";
+                    clearInterval(energyProduction);
+                    updateDisplays();
+                }
+            },energyProductionSpeed);
+        };
+
+        if (oreCoal <= 0) {
+            alert("not enough coal");
+            energyProductionActive = false;
+            startEnergy.textContent = "Start Generators";
             updateDisplays();
         }
-        else {
-            clearInterval(energyProduction);
-        }
-    }, workSpeed);
+
+    } else {
+        energyProductionActive = false;
+        startEnergy.textContent = "Start Generators";
+        clearInterval(energyProduction);
+    }
 });
 
 const startRefining = document.getElementById('startRefining');
 
-startRefining.addEventListener("click", () => {
-    refining = setInterval(() => {
-        if (oreIron >= refineRequirement && refineries > 0) {
-            oreIron -= refineRequirement;
-            iron += refineOutput * refineries;
-            energy -= energyConsumption;
-        }
-        if (oreSilver >= refineRequirement && refineries > 0) {
-            oreSilver -= refineRequirement;
-            silver += refineOutput * refineries;
-            energy -= energyConsumption;
-        }
-        if (oreGold >= refineRequirement && refineries > 0) {
-            oreGold -= refineRequirement;
-            gold += refineOutput * refineries;
-            energy -= energyConsumption;
-        }
+let refiningActive = false;
 
-        if (energy <= 0) {
-            energy = 0;
-            alert("Brak energii");
-            clearInterval(refining);
-        }
-        updateDisplays();
-    }, workSpeed);
+startRefining.addEventListener("click", () => {
+    if (!refiningActive) {
+        refiningActive = true;
+        startRefining.textContent = "Refining...";
+        refining = setInterval(() => {
+            if (oreIron >= refineRequirement && refineries > 0) {
+                oreIron -= refineRequirement;
+                iron += refineOutput * refineries;
+                energy -= energyConsumption;
+            }
+            if (oreSilver >= refineRequirement && refineries > 0) {
+                oreSilver -= refineRequirement;
+                silver += refineOutput * refineries;
+                energy -= energyConsumption;
+            }
+            if (oreGold >= refineRequirement && refineries > 0) {
+                oreGold -= refineRequirement;
+                gold += refineOutput * refineries;
+                energy -= energyConsumption;
+            }
+            if (energy <= 0) {
+                alert("Brak energii");
+                clearInterval(refining);
+                refiningActive = false;
+                startRefining.textContent = "Start Refining";
+            }
+            if (oreIron < refineRequirement && oreSilver < refineRequirement && oreGold < refineRequirement) {
+                alert("There is not enough ore to refine");
+                clearInterval(refining);
+                refiningActive = false;
+                startRefining.textContent = "Start Refining";
+            }
+            updateDisplays();
+        }, workSpeed);
+    } else {
+        startRefining.textContent = "Start Refining - i fucked up boss"; //czasami po wciśnięciu przycisku, kiedy wymogi są spełnione dalej pokazuje się "Start Refining", trzeba kliknąć dwa razy, wtedy działa. 
+        refiningActive = false;
+    }
+
 });
 
 
@@ -212,5 +267,4 @@ minersUpgrade.addEventListener("click", () => {
         console.log("za mało kredytów");
     }
 });
-
 

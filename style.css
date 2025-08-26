@@ -9,8 +9,8 @@ header {
 }
 
 .infoPanel {
-    width: 13%;
-    float: left;
+    width: 16%;
+    position: absolute;
 }
 
 #infoMain {
@@ -29,6 +29,21 @@ header {
     border: dashed 3px rgb(185,100,39);
     padding: 5px;
     margin: 5px ;
+}
+
+#resourceManagement {
+    margin: 5px;
+    position: fixed;
+    right: 5px;
+    text-align: center;
+}
+
+#equipment {
+    margin: 5px;
+    position: fixed;
+    right: 98px;
+    top: 140px;
+    text-align: center;
 }
 
 .infoText {
@@ -52,16 +67,17 @@ body {
 }
 
 button {
+    width: 165px;
+    height: 35px;
+    font-family: 'Courier New', Courier, monospace;
     background-color: rgb(21,10,3);
     color: rgb(185,100,39);
-    border: solid 3px rgb(73,40,12);
-    padding: 10px 20px;
+    border: dotted 3px rgb(185,100,39);
+    padding: 5px 5px;
     cursor: pointer;
-    transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+    transition: background-color 0.2s;
 }
 
 button:hover {
     background-color: rgb(73,40,12);
-    color: rgb(185,100,39);
-    border-color: rgb(73,40,12);
 }
