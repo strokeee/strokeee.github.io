@@ -231,8 +231,9 @@ startRefining.addEventListener("click", () => {
             updateDisplays();
         }, workSpeed);
     } else {
-        startRefining.textContent = "Start Refining - i fucked up boss"; //czasami po wciśnięciu przycisku, kiedy wymogi są spełnione dalej pokazuje się "Start Refining", trzeba kliknąć dwa razy, wtedy działa. 
+        startRefining.textContent = "Start Refining"; //czasami po wciśnięciu przycisku, kiedy wymogi są spełnione dalej pokazuje się "Start Refining", trzeba kliknąć dwa razy, wtedy działa. 
         refiningActive = false;
+        clearInterval(refining);
     }
 
 });
