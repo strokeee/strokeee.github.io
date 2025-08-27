@@ -11,6 +11,23 @@ header {
 .infoPanel {
     width: 16%;
     position: absolute;
+    left: 8px;
+}
+
+.marketPanel {
+    border: dashed 3px rgb(185,100,39);
+    width: 22%;
+    position: absolute;
+    right: 8px;
+    top: 69px;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+#operations {
+    position: relative;
+    top: 25px;
 }
 
 #infoMain {
@@ -32,26 +49,11 @@ header {
 }
 
 #resourceManagement {
-    margin: 5px;
-    position: fixed;
-    right: 5px;
     text-align: center;
 }
 
 #equipment {
-    margin: 5px;
-    position: fixed;
-    right: 98px;
-    top: 140px;
     text-align: center;
-}
-
-.infoText {
-    color: rgb(185,100,39);
-}
-.akcent {
-    color: rgb(73,40,12);
-    font-weight: bold;
 }
 
 body {
@@ -61,12 +63,7 @@ body {
     margin: 100px, 20px, 100px, 20px;
 }
 
-.loadingBar {
-    color: white;
-    background-color: rgb(73,40,12);
-}
-
-button {
+#resourceManagement button {
     width: 165px;
     height: 35px;
     font-family: 'Courier New', Courier, monospace;
@@ -78,6 +75,30 @@ button {
     transition: background-color 0.2s;
 }
 
-button:hover {
+#equipment button {
+    width: 165px;
+    height: 35px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(21,10,3);
+    color: rgb(185,100,39);
+    border: dotted 3px rgb(185,100,39);
+    padding: 5px 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#market button {
+    width: 100px;
+    height: 35px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(21,10,3);
+    color: rgb(185,100,39);
+    border: dotted 3px rgb(185,100,39);
+    padding: 5px 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#resourceManagement #equipment #sellButtons button:hover {
     background-color: rgb(73,40,12);
 }

@@ -47,9 +47,9 @@
         oreGoldDisplay.textContent = `Gold Ore: ${oreGold.toFixed(2)}T`;
         oreSilverDisplay.textContent = `Silver Ore: ${oreSilver.toFixed(2)}T`;
 
-        ironDisplay.textContent = `Iron: ${iron.toFixed(2)}T`;
-        silverDisplay.textContent = `Silver: ${silver.toFixed(2)}T`;
-        goldDisplay.textContent = `Gold: ${gold.toFixed(2)}T`;
+        ironDisplay.textContent = `Steel: ${iron.toFixed(2)}T`;
+        silverDisplay.textContent = `Silver: ${silver.toFixed(3)}T`;
+        goldDisplay.textContent = `Gold: ${gold.toFixed(4)}T`;
     }
 
 updateDisplays();
@@ -74,19 +74,19 @@ startMining.addEventListener("click", () => {
             randomOre = Math.floor(Math.random() * 4) + 1;
             switch (randomOre) {
                 case 1:
-                    oreCoal += (minersOutput * miners) * 1;
+                    oreCoal += minersOutput * miners;
                     energy -= energyConsumption * miners;
                     break;
                 case 2:
-                    oreIron += (minersOutput * miners) * 0.5;
+                    oreIron += minersOutput * miners;
                     energy -= energyConsumption * miners;
                     break;
                 case 3:
-                    oreSilver += (minersOutput * miners) * 0.25;
+                    oreSilver += minersOutput * miners;
                     energy -= energyConsumption * miners;
                     break;
                 case 4:
-                    oreGold += (minersOutput * miners) * 0.1;
+                    oreGold += minersOutput * miners;
                     energy -= energyConsumption * miners;
                     break;
             }
@@ -139,9 +139,6 @@ refineriesBuy.addEventListener("click", () => {
     }
 });
 
-let workSpeed = 1000;
-let refineRequirement = 1;
-let refineOutput = 0.1;
 
 // GENEROWANIE ENERGII=============================================
 const startEnergy = document.getElementById('startEnergy');
@@ -192,6 +189,12 @@ startEnergy.addEventListener("click", () => {
     }
 });
 
+// RAFINACJA==============================================================
+
+let workSpeed = 1000;
+let refineRequirement = 1;
+let refineOutput = 1;
+
 const startRefining = document.getElementById('startRefining');
 
 let refiningActive = false;
@@ -203,17 +206,17 @@ startRefining.addEventListener("click", () => {
         refining = setInterval(() => {
             if (oreIron >= refineRequirement && refineries > 0) {
                 oreIron -= refineRequirement;
-                iron += refineOutput * refineries;
+                iron += (refineOutput * refineries) * 0.60;
                 energy -= energyConsumption;
             }
             if (oreSilver >= refineRequirement && refineries > 0) {
                 oreSilver -= refineRequirement;
-                silver += refineOutput * refineries;
+                silver += (refineOutput * refineries) * 0.015;
                 energy -= energyConsumption;
             }
             if (oreGold >= refineRequirement && refineries > 0) {
                 oreGold -= refineRequirement;
-                gold += refineOutput * refineries;
+                gold += (refineOutput * refineries) * 0.0002;
                 energy -= energyConsumption;
             }
             if (energy <= 0) {
@@ -231,7 +234,7 @@ startRefining.addEventListener("click", () => {
             updateDisplays();
         }, workSpeed);
     } else {
-        startRefining.textContent = "Start Refining"; //czasami po wciśnięciu przycisku, kiedy wymogi są spełnione dalej pokazuje się "Start Refining", trzeba kliknąć dwa razy, wtedy działa. 
+        startRefining.textContent = "Start Refining"; 
         refiningActive = false;
         clearInterval(refining);
     }
@@ -269,3 +272,73 @@ minersUpgrade.addEventListener("click", () => {
     }
 });
 
+//selling tab==============================================
+const sellIronOre = document.getElementById('sellIronOre');
+const sellSilverOre = document.getElementById('sellSilverOre');
+const sellGoldOre = document.getElementById('sellGoldOre');
+const sellIron = document.getElementById('sellIron');
+const sellSilver = document.getElementById('sellSilver');
+const sellGold = document.getElementById('sellGold');
+
+
+// selling ore========
+sellIronOre.addEventListener("click", () => {
+    if (oreIron > 0) {
+        credits += oreIron * 50;
+        oreIron = 0;
+        updateDisplays();
+    } else {
+        console.log("za mało ironOre");
+    }
+});
+
+sellSilverOre.addEventListener("click", () => {
+    if (oreSilver > 0) {
+        credits += oreSilver * 100;
+        oreSilver = 0;
+        updateDisplays();
+    } else {
+        console.log("za mało silverOre");
+    }
+});
+
+sellGoldOre.addEventListener("click", () => {
+    if (oreGold > 1) {
+        credits += oreGold * 200;
+        oreGold = 0;
+        updateDisplays();
+    } else {
+        console.log("za mało goldOre");
+    }
+});
+
+// selling alloys========
+sellIron.addEventListener("click", () => {
+    if (iron > 0) {
+        credits += iron * 1000; //za tonę
+        iron = 0;
+        updateDisplays();
+    } else {
+        console.log("za mało iron");
+    }
+});
+
+sellSilver.addEventListener("click", () => {
+    if (silver > 0) {
+        credits += silver * 2500; //za tonę
+        silver = 0;
+        updateDisplays();
+    } else {
+        console.log("za mało silver");
+    }
+});
+
+sellGold.addEventListener("click", () => {
+    if (gold > 0) {
+        credits += gold * 100000; //za tonę
+        gold = 0;
+        updateDisplays();
+    } else {
+        console.log("za mało gold");
+    }
+});

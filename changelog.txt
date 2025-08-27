@@ -1,12 +1,15 @@
 ----26.08.2025, 14:45
-SCRIPT:
 >Made production buttons into toggles
 >Balanced energy production
 >Made info counters round up or to have 2 spaces after "."
-
-STYLE:
 >Changed width and height of buttons, as well as positioning - requires more work down the line
 >Made 2 groups of buttons (equipment, resourceManagement) for easier positioning later
-
-GENERAL:
 >Deleted some unecessary code
+
+----27.08.2025, 11:45
+>Added market panel
+>Rearranged UI
+>Fixed styles
+>Adjusted refinery outputs for specific ores - needs more work
+
+TODO: Adjust prices of ores, alloys to buing new machines.
